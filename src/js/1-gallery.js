@@ -68,28 +68,17 @@ const images = [
   import "simplelightbox/dist/simple-lightbox.min.css";
 
   const gallery = document.querySelector('ul.gallery');
-  
-  gallery.addEventListener('click', function (event) {
-    event.preventDefault();
-  
-    if (event.target.classList.contains('gallery-image')) {
-      const originalImage = event.target.dataset.source;
-      const instance = basicLightbox.create(
-        `<img src="${originalImage}" width="1112" height="640">`
-      );
-  
-      instance.show();
-    }
-  });
-  
+    
   images.forEach(image => {
     const galleryItem = document.createElement('li');
     galleryItem.classList.add('gallery-item');
+
     gallery.appendChild(galleryItem);
   
     const link = document.createElement('a');
     link.classList.add('gallery-link');
     link.href = image.original;
+
     galleryItem.appendChild(link);
   
     const img = document.createElement('img');
@@ -99,4 +88,9 @@ const images = [
     img.alt = image.description;
   
     link.appendChild(img);
+  });
+
+  const lightbox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250
   });
